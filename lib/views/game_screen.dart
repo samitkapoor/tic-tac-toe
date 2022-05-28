@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:tictactoe/constants/colors.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class GameScreen extends StatelessWidget {
   const GameScreen({super.key});
@@ -40,7 +42,9 @@ class GameScreen extends StatelessWidget {
               right: 0,
               top: 0,
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  launchUrlString('https://en.wikipedia.org/wiki/Tic-tac-toe');
+                },
                 tooltip: 'About',
                 icon: Icon(Icons.info, size: 32, color: gridColor),
               ),
