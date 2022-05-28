@@ -12,6 +12,7 @@ class Tictactoe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xff342E37),
         primaryColor: const Color(0xffFA824C),

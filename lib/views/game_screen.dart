@@ -9,21 +9,44 @@ class GameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        padding:
-            EdgeInsets.fromLTRB(15, MediaQuery.of(context).padding.top, 15, 15),
-        children: [
-          Text(
-            'Tic-Tac-Toe',
-            style: GoogleFonts.epilogue(
-              fontSize: 32,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold,
-              color: gridColor,
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.fromLTRB(
+          15,
+          MediaQuery.of(context).padding.top,
+          15,
+          15,
+        ),
+        alignment: Alignment.center,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Positioned(
+              top: 15,
+              child: Text(
+                'Tic-Tac-Toe',
+                style: GoogleFonts.epilogue(
+                  fontSize: 32,
+                  fontStyle: FontStyle.italic,
+                  decoration: TextDecoration.lineThrough,
+                  fontWeight: FontWeight.bold,
+                  color: gridColor,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
-            textAlign: TextAlign.center,
-          ),
-        ],
+            Positioned(
+              right: 0,
+              top: 0,
+              child: IconButton(
+                onPressed: () {},
+                tooltip: 'About',
+                icon: Icon(Icons.info, size: 32, color: gridColor),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
