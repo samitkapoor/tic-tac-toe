@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:tictactoe/core/game_screen.dart';
 
 void main() {
-  runApp(const Tictactoe());
+  runApp(Tictactoe());
 }
 
 class Tictactoe extends StatelessWidget {
-  const Tictactoe({super.key});
+  Tictactoe({super.key});
 
+  GlobalKey<GameScreenState> gameScreenKey = GlobalKey<GameScreenState>();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,7 +19,7 @@ class Tictactoe extends StatelessWidget {
         primaryColor: const Color(0xffFA824C),
         colorScheme: const ColorScheme.dark(),
       ),
-      home: const GameScreen(),
+      home: GameScreen(gameScreenKey: gameScreenKey, key: gameScreenKey),
     );
   }
 }

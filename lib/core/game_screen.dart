@@ -2,26 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import 'package:tictactoe/components/grid_button.dart';
+import 'package:tictactoe/components/grid_button_widget.dart';
 import 'package:tictactoe/constants/about.dart';
 import 'package:tictactoe/constants/colors.dart';
 import 'package:tictactoe/utils/logic.dart';
 
-class GameScreen extends StatelessWidget {
-  const GameScreen({super.key});
+class GameScreen extends StatefulWidget {
+  GameScreen({required this.gameScreenKey, super.key});
 
+  GlobalKey<GameScreenState> gameScreenKey;
+
+  @override
+  State<GameScreen> createState() => GameScreenState();
+}
+
+class GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.fromLTRB(
-          15,
-          MediaQuery.of(context).padding.top,
-          15,
-          15,
-        ),
+        padding:
+            EdgeInsets.fromLTRB(15, MediaQuery.of(context).padding.top, 15, 15),
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -71,7 +74,12 @@ class GameScreen extends StatelessWidget {
                         width: (MediaQuery.of(context).size.width - 36) / 3,
                         child: Column(
                           children: (column)
-                              .map((element) => const GridButton())
+                              .map(
+                                (gridButton) => GridButtonWidget(
+                                  gridButton: gridButton,
+                                  gameScreenKey: widget.gameScreenKey,
+                                ),
+                              )
                               .toList(),
                         ),
                       );
