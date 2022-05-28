@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tictactoe/constants/about.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
+import 'package:tictactoe/components/grid_button.dart';
+import 'package:tictactoe/constants/about.dart';
 import 'package:tictactoe/constants/colors.dart';
 import 'package:tictactoe/utils/logic.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class GameScreen extends StatelessWidget {
   const GameScreen({super.key});
@@ -25,7 +26,7 @@ class GameScreen extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
             ),
             Positioned(
@@ -44,7 +45,7 @@ class GameScreen extends StatelessWidget {
             ),
             Positioned(
               right: 0,
-              top: 0,
+              top: 2,
               child: IconButton(
                 onPressed: () {
                   launchUrlString(aboutGameUrl);
@@ -56,30 +57,22 @@ class GameScreen extends StatelessWidget {
             Container(
               height: MediaQuery.of(context).size.width - 30,
               width: MediaQuery.of(context).size.width - 30,
-              color: gridColor,
+              padding: const EdgeInsets.all(3),
+              color: Colors.black,
+              alignment: Alignment.center,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ...gameState.map(
                     (column) {
                       return SizedBox(
-                        height: MediaQuery.of(context).size.width - 30,
-                        width: (MediaQuery.of(context).size.width - 30) / 3,
+                        height: MediaQuery.of(context).size.width - 36,
+                        width: (MediaQuery.of(context).size.width - 36) / 3,
                         child: Column(
-                          children: [
-                            ...(column)
-                                .map(
-                                  (e) => Container(
-                                    height: (MediaQuery.of(context).size.width -
-                                            30) /
-                                        3,
-                                    width: (MediaQuery.of(context).size.width -
-                                            30) /
-                                        3,
-                                    color: Colors.black,
-                                  ),
-                                )
-                                .toList(),
-                          ],
+                          children: (column)
+                              .map((element) => const GridButton())
+                              .toList(),
                         ),
                       );
                     },
