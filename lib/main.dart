@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tictactoe/core/game_screen.dart';
 
 void main() {
-  runApp(Tictactoe());
+  runApp(const Tictactoe());
 }
 
 class Tictactoe extends StatelessWidget {

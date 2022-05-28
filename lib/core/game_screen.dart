@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tictactoe/constants/about.dart';
 
 import 'package:tictactoe/constants/colors.dart';
+import 'package:tictactoe/utils/logic.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class GameScreen extends StatelessWidget {
@@ -20,10 +21,13 @@ class GameScreen extends StatelessWidget {
           15,
           15,
         ),
-        alignment: Alignment.center,
         child: Stack(
           alignment: Alignment.center,
           children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.width,
+              width: MediaQuery.of(context).size.width,
+            ),
             Positioned(
               top: 15,
               child: Text(
@@ -49,6 +53,40 @@ class GameScreen extends StatelessWidget {
                 icon: Icon(Icons.info, size: 32, color: gridColor),
               ),
             ),
+            Container(
+              height: MediaQuery.of(context).size.width - 30,
+              width: MediaQuery.of(context).size.width - 30,
+              color: gridColor,
+              child: Row(
+                children: [
+                  ...gameState.map(
+                    (column) {
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.width - 30,
+                        width: (MediaQuery.of(context).size.width - 30) / 3,
+                        child: Column(
+                          children: [
+                            ...(column)
+                                .map(
+                                  (e) => Container(
+                                    height: (MediaQuery.of(context).size.width -
+                                            30) /
+                                        3,
+                                    width: (MediaQuery.of(context).size.width -
+                                            30) /
+                                        3,
+                                    color: Colors.black,
+                                  ),
+                                )
+                                .toList(),
+                          ],
+                        ),
+                      );
+                    },
+                  ).toList(),
+                ],
+              ),
+            )
           ],
         ),
       ),
