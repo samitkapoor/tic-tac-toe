@@ -6,6 +6,7 @@ import 'package:tictactoe/core/game_screen.dart';
 import 'package:tictactoe/models/grid_button.dart';
 import 'package:tictactoe/utils/logic.dart';
 
+// ignore: must_be_immutable
 class GridButtonWidget extends StatelessWidget {
   GridButtonWidget({
     required this.gameScreenKey,

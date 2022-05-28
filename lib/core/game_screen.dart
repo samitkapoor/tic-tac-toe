@@ -10,6 +10,7 @@ import 'package:tictactoe/utils/logic.dart';
 class GameScreen extends StatefulWidget {
   GameScreen({required this.gameScreenKey, super.key});
 
+  //this key will be used as a parameter for the helper functions to call setState from outside the class
   GlobalKey<GameScreenState> gameScreenKey;
 
   @override
@@ -20,14 +21,13 @@ class GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
+      body: Padding(
         padding:
             EdgeInsets.fromLTRB(15, MediaQuery.of(context).padding.top, 15, 15),
         child: Stack(
           alignment: Alignment.center,
           children: [
+            //full screen is the playground for the stack
             SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,

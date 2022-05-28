@@ -6,6 +6,7 @@ void main() {
   runApp(Tictactoe());
 }
 
+// ignore: must_be_immutable
 class Tictactoe extends StatelessWidget {
   Tictactoe({super.key});
 
