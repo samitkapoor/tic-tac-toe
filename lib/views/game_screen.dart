@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:tictactoe/constants/about.dart';
 
 import 'package:tictactoe/constants/colors.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -43,7 +43,7 @@ class GameScreen extends StatelessWidget {
               top: 0,
               child: IconButton(
                 onPressed: () {
-                  launchUrlString('https://en.wikipedia.org/wiki/Tic-tac-toe');
+                  launchUrlString(aboutGameUrl);
                 },
                 tooltip: 'About',
                 icon: Icon(Icons.info, size: 32, color: gridColor),
