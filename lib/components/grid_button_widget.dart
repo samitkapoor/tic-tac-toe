@@ -22,7 +22,7 @@ class GridButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        onPlay(gridButton: gridButton, key: gameScreenKey);
+        onPlay(gridButton: gridButton, gameScreenKey: gameScreenKey);
       },
       child: Container(
         height: (MediaQuery.of(context).size.width - 36) / 3,

@@ -91,6 +91,14 @@ class GameScreenState extends State<GameScreen> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          onRestart(gameScreenKey: widget.gameScreenKey);
+        },
+        tooltip: 'Restart game',
+        backgroundColor: Theme.of(context).primaryColor,
+        child: const Icon(Icons.refresh, size: 30),
+      ),
     );
   }
 }

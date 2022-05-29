@@ -43,13 +43,33 @@ void switchTurn() {
 
 //this function will be called everytime a button is pressed
 void onPlay(
-    {required GridButton gridButton, required GlobalKey<GameScreenState> key}) {
+    {required GridButton gridButton,
+    required GlobalKey<GameScreenState> gameScreenKey}) {
   int row = gridButton.row;
   int col = gridButton.column;
 
-  gameState[row][col].value = (currentTurn == Turn.playerOne) ? 1 : 2;
+  //if the grid element has not been pressed before
+  if (gameState[row][col].value == 0) {
+    gameState[row][col].value = (currentTurn == Turn.playerOne) ? 1 : 2;
+
+    // ignore: invalid_use_of_protected_member
+    gameScreenKey.currentState!.setState(() {});
+    switchTurn();
+  }
+}
+
+//method called when restart floating button is pressed
+//resets all the value, so the game can be played again
+void onRestart({required GlobalKey<GameScreenState> gameScreenKey}) {
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      gameState[i][j].value = 0;
+    }
+  }
+
+  currentTurn = Turn.playerOne;
+  result = Result.play;
 
   // ignore: invalid_use_of_protected_member
-  key.currentState!.setState(() {});
-  switchTurn();
+  gameScreenKey.currentState!.setState(() {});
 }
