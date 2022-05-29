@@ -18,7 +18,7 @@ class Tictactoe extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xff342E37),
         primaryColor: const Color(0xffFA824C),
-        colorScheme: const ColorScheme.dark(),
+        colorScheme: const ColorScheme.light(),
       ),
       home: GameScreen(gameScreenKey: gameScreenKey, key: gameScreenKey),
     );

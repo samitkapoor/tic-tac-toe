@@ -44,7 +44,8 @@ void switchTurn() {
 //this function will be called everytime a button is pressed
 void onPlay(
     {required GridButton gridButton,
-    required GlobalKey<GameScreenState> gameScreenKey}) {
+    required GlobalKey<GameScreenState> gameScreenKey,
+    required BuildContext context}) {
   if (result == Result.play) {
     int row = gridButton.row;
     int col = gridButton.column;
@@ -57,8 +58,37 @@ void onPlay(
       gameScreenKey.currentState!.setState(() {});
       switchTurn();
     }
+  } else {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('GAME OVER'),
+      ),
+    );
   }
   result = didEnd();
+  if (result == Result.playerOneWin) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Player 1 Wins!'),
+      ),
+    );
+  } else if (result == Result.playerTwoWin) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Player 2 Wins!'),
+      ),
+    );
+  } else if (result == Result.tie) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('It\'s a tie!'),
+      ),
+    );
+  }
 }
 
 //method called when restart floating button is pressed
@@ -89,7 +119,7 @@ Result didEnd() {
     }
   }
   //right diagonal
-  else if (gameState[0][2].value == gameState[1][1].value &&
+  if (gameState[0][2].value == gameState[1][1].value &&
       gameState[1][1].value == gameState[2][0].value) {
     if (gameState[1][1].value == 1) {
       return Result.playerOneWin;
@@ -98,7 +128,7 @@ Result didEnd() {
     }
   }
   //top row
-  else if (gameState[0][0].value == gameState[0][1].value &&
+  if (gameState[0][0].value == gameState[0][1].value &&
       gameState[0][1].value == gameState[0][2].value) {
     if (gameState[0][1].value == 1) {
       return Result.playerOneWin;
@@ -107,7 +137,7 @@ Result didEnd() {
     }
   }
   //middle row
-  else if (gameState[1][0].value == gameState[1][1].value &&
+  if (gameState[1][0].value == gameState[1][1].value &&
       gameState[1][1].value == gameState[1][2].value) {
     if (gameState[1][1].value == 1) {
       return Result.playerOneWin;
@@ -116,7 +146,7 @@ Result didEnd() {
     }
   }
   //bottom row
-  else if (gameState[2][0].value == gameState[2][1].value &&
+  if (gameState[2][0].value == gameState[2][1].value &&
       gameState[2][1].value == gameState[2][2].value) {
     if (gameState[2][1].value == 1) {
       return Result.playerOneWin;
@@ -125,7 +155,7 @@ Result didEnd() {
     }
   }
   //left column
-  else if (gameState[0][0].value == gameState[1][0].value &&
+  if (gameState[0][0].value == gameState[1][0].value &&
       gameState[1][0].value == gameState[2][0].value) {
     if (gameState[1][0].value == 1) {
       return Result.playerOneWin;
@@ -134,7 +164,7 @@ Result didEnd() {
     }
   }
   //middle column
-  else if (gameState[0][1].value == gameState[1][1].value &&
+  if (gameState[0][1].value == gameState[1][1].value &&
       gameState[1][1].value == gameState[2][1].value) {
     if (gameState[1][1].value == 1) {
       return Result.playerOneWin;
@@ -143,7 +173,7 @@ Result didEnd() {
     }
   }
   //right column
-  else if (gameState[0][2].value == gameState[1][2].value &&
+  if (gameState[0][2].value == gameState[1][2].value &&
       gameState[1][2].value == gameState[2][2].value) {
     if (gameState[1][2].value == 1) {
       return Result.playerOneWin;
