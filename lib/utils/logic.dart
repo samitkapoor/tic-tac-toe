@@ -45,17 +45,20 @@ void switchTurn() {
 void onPlay(
     {required GridButton gridButton,
     required GlobalKey<GameScreenState> gameScreenKey}) {
-  int row = gridButton.row;
-  int col = gridButton.column;
+  if (result == Result.play) {
+    int row = gridButton.row;
+    int col = gridButton.column;
 
-  //if the grid element has not been pressed before
-  if (gameState[row][col].value == 0) {
-    gameState[row][col].value = (currentTurn == Turn.playerOne) ? 1 : 2;
+    //if the grid element has not been pressed before
+    if (gameState[row][col].value == 0) {
+      gameState[row][col].value = (currentTurn == Turn.playerOne) ? 1 : 2;
 
-    // ignore: invalid_use_of_protected_member
-    gameScreenKey.currentState!.setState(() {});
-    switchTurn();
+      // ignore: invalid_use_of_protected_member
+      gameScreenKey.currentState!.setState(() {});
+      switchTurn();
+    }
   }
+  result = didEnd();
 }
 
 //method called when restart floating button is pressed
@@ -72,4 +75,94 @@ void onRestart({required GlobalKey<GameScreenState> gameScreenKey}) {
 
   // ignore: invalid_use_of_protected_member
   gameScreenKey.currentState!.setState(() {});
+}
+
+//the method checks if the game has ended or not!
+Result didEnd() {
+  //left diagonal
+  if (gameState[0][0].value == gameState[1][1].value &&
+      gameState[1][1].value == gameState[2][2].value) {
+    if (gameState[1][1].value == 1) {
+      return Result.playerOneWin;
+    } else if (gameState[1][1].value == 2) {
+      return Result.playerTwoWin;
+    }
+  }
+  //right diagonal
+  else if (gameState[0][2].value == gameState[1][1].value &&
+      gameState[1][1].value == gameState[2][0].value) {
+    if (gameState[1][1].value == 1) {
+      return Result.playerOneWin;
+    } else if (gameState[1][1].value == 2) {
+      return Result.playerTwoWin;
+    }
+  }
+  //top row
+  else if (gameState[0][0].value == gameState[0][1].value &&
+      gameState[0][1].value == gameState[0][2].value) {
+    if (gameState[0][1].value == 1) {
+      return Result.playerOneWin;
+    } else if (gameState[0][1].value == 2) {
+      return Result.playerTwoWin;
+    }
+  }
+  //middle row
+  else if (gameState[1][0].value == gameState[1][1].value &&
+      gameState[1][1].value == gameState[1][2].value) {
+    if (gameState[1][1].value == 1) {
+      return Result.playerOneWin;
+    } else if (gameState[1][1].value == 2) {
+      return Result.playerTwoWin;
+    }
+  }
+  //bottom row
+  else if (gameState[2][0].value == gameState[2][1].value &&
+      gameState[2][1].value == gameState[2][2].value) {
+    if (gameState[2][1].value == 1) {
+      return Result.playerOneWin;
+    } else if (gameState[2][1].value == 2) {
+      return Result.playerTwoWin;
+    }
+  }
+  //left column
+  else if (gameState[0][0].value == gameState[1][0].value &&
+      gameState[1][0].value == gameState[2][0].value) {
+    if (gameState[1][0].value == 1) {
+      return Result.playerOneWin;
+    } else if (gameState[1][0].value == 2) {
+      return Result.playerTwoWin;
+    }
+  }
+  //middle column
+  else if (gameState[0][1].value == gameState[1][1].value &&
+      gameState[1][1].value == gameState[2][1].value) {
+    if (gameState[1][1].value == 1) {
+      return Result.playerOneWin;
+    } else if (gameState[1][1].value == 2) {
+      return Result.playerTwoWin;
+    }
+  }
+  //right column
+  else if (gameState[0][2].value == gameState[1][2].value &&
+      gameState[1][2].value == gameState[2][2].value) {
+    if (gameState[1][2].value == 1) {
+      return Result.playerOneWin;
+    } else if (gameState[1][2].value == 2) {
+      return Result.playerTwoWin;
+    }
+  }
+
+  if (gameState[0][0].value != 0 &&
+      gameState[0][1].value != 0 &&
+      gameState[0][2].value != 0 &&
+      gameState[1][0].value != 0 &&
+      gameState[1][1].value != 0 &&
+      gameState[1][2].value != 0 &&
+      gameState[2][0].value != 0 &&
+      gameState[2][1].value != 0 &&
+      gameState[2][2].value != 0) {
+    return Result.tie;
+  }
+
+  return Result.play;
 }
