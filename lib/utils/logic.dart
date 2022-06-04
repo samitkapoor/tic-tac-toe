@@ -93,7 +93,9 @@ void onPlay(
 
 //method called when restart floating button is pressed
 //resets all the value, so the game can be played again
-void onRestart({required GlobalKey<GameScreenState> gameScreenKey}) {
+void onRestart(
+    {required GlobalKey<GameScreenState> gameScreenKey,
+    required BuildContext context}) {
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
       gameState[i][j].value = 0;
@@ -102,7 +104,7 @@ void onRestart({required GlobalKey<GameScreenState> gameScreenKey}) {
 
   currentTurn = Turn.playerOne;
   result = Result.play;
-
+  ScaffoldMessenger.of(context).clearSnackBars();
   // ignore: invalid_use_of_protected_member
   gameScreenKey.currentState!.setState(() {});
 }

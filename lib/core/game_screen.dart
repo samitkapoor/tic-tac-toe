@@ -41,7 +41,7 @@ class GameScreenState extends State<GameScreen> {
                   fontStyle: FontStyle.italic,
                   decoration: TextDecoration.lineThrough,
                   fontWeight: FontWeight.bold,
-                  color: gridColor,
+                  color: Colors.white,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -54,14 +54,16 @@ class GameScreenState extends State<GameScreen> {
                   launchUrlString(aboutGameUrl);
                 },
                 tooltip: 'About',
-                icon: Icon(Icons.info, size: 32, color: gridColor),
+                icon: const Icon(Icons.info, size: 32, color: Colors.white),
               ),
             ),
             Container(
               height: MediaQuery.of(context).size.width - 30,
-              width: MediaQuery.of(context).size.width - 30,
-              padding: const EdgeInsets.all(3),
-              color: Colors.black,
+              width: MediaQuery.of(context).size.width - 29,
+              decoration: BoxDecoration(
+                border: Border.all(color: gridColor, width: 5),
+                color: Colors.black26,
+              ),
               alignment: Alignment.center,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -70,8 +72,8 @@ class GameScreenState extends State<GameScreen> {
                   ...gameState.map(
                     (column) {
                       return SizedBox(
-                        height: MediaQuery.of(context).size.width - 36,
-                        width: (MediaQuery.of(context).size.width - 36) / 3,
+                        height: MediaQuery.of(context).size.width - 40,
+                        width: (MediaQuery.of(context).size.width - 40) / 3,
                         child: Column(
                           children: (column)
                               .map(
@@ -93,7 +95,7 @@ class GameScreenState extends State<GameScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          onRestart(gameScreenKey: widget.gameScreenKey);
+          onRestart(gameScreenKey: widget.gameScreenKey, context: context);
         },
         tooltip: 'Restart game',
         backgroundColor: Theme.of(context).primaryColor,

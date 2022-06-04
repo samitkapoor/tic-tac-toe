@@ -28,8 +28,8 @@ class GridButtonWidget extends StatelessWidget {
             context: context);
       },
       child: Container(
-        height: (MediaQuery.of(context).size.width - 36) / 3,
-        width: (MediaQuery.of(context).size.width - 36) / 3,
+        height: (MediaQuery.of(context).size.width - 40) / 3,
+        width: (MediaQuery.of(context).size.width - 40) / 3,
         decoration: BoxDecoration(
           border: Border.all(
             color: (gridButton.value == 1 ||
@@ -37,7 +37,7 @@ class GridButtonWidget extends StatelessWidget {
                     gridButton.value == 0)
                 ? gridColor
                 : Colors.yellow,
-            width: 3,
+            width: 5,
           ),
           color: (gridButton.value != 3 && gridButton.value != 4)
               ? Colors.transparent
