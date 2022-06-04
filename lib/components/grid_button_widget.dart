@@ -32,16 +32,12 @@ class GridButtonWidget extends StatelessWidget {
         width: (MediaQuery.of(context).size.width - 40) / 3,
         decoration: BoxDecoration(
           border: Border.all(
-            color: (gridButton.value == 1 ||
-                    gridButton.value == 2 ||
-                    gridButton.value == 0)
-                ? gridColor
-                : Colors.yellow,
+            color: gridColor,
             width: 5,
           ),
           color: (gridButton.value != 3 && gridButton.value != 4)
               ? Colors.transparent
-              : Colors.yellow,
+              : Colors.black54,
         ),
         alignment: Alignment.center,
         child: (gridButton.value == 0)
