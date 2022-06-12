@@ -1,16 +1,19 @@
-# tictactoe
+# tic-tac-toe
 
-A new Flutter project.
+This is a mobile version of the famous [Tic-Tac-Toe](https://en.wikipedia.org/wiki/Tic-tac-toe) game made using Flutter!
 
-## Getting Started
+## Screenshot of the Project
 
-This project is a starting point for a Flutter application.
+<img height= 700 src="https://github.com/samitkapoor/tic-tac-toe/blob/master/assets/preview.gif"/>
 
-A few resources to get you started if this is your first Flutter project:
+## Packages Used: 
+- [google_fonts](https://pub.dev/packages/google_fonts) <br />
+- [url_launcher](https://pub.dev/packages/url_launcher) <br />
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Connect with me on:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Linkedin](https://www.linkedin.com/in/samit-kapoor/) <br />
+- [Instagram](https://www.instagram.com/im_samit/) <br />
+- [Gmail](https://mail.google.com/mail/u/0/?fs=1&to=samitkapoor77@gmail.com&tf=cm)
+
+
