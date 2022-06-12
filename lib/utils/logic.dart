@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import 'package:tictactoe/constants/colors.dart';
 import 'package:tictactoe/core/game_screen.dart';
 import 'package:tictactoe/models/grid_button.dart';
 
@@ -36,6 +38,8 @@ Turn currentTurn = Turn.playerOne;
 
 Result result = Result.play;
 
+bool gameOver = false;
+
 void switchTurn() {
   currentTurn =
       (currentTurn == Turn.playerOne) ? Turn.playerTwo : Turn.playerOne;
@@ -46,7 +50,15 @@ void onPlay(
     {required GridButton gridButton,
     required GlobalKey<GameScreenState> gameScreenKey,
     required BuildContext context}) {
-  print(didEnd());
+  if (gameOver) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('GAME OVER'),
+      ),
+    );
+    return;
+  }
   if (didEnd() == Result.play) {
     int row = gridButton.row;
     int col = gridButton.column;
@@ -59,35 +71,41 @@ void onPlay(
       gameScreenKey.currentState!.setState(() {});
       switchTurn();
     }
-  } else {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('GAME OVER'),
-      ),
-    );
   }
   result = didEnd();
-  if (result == Result.playerOneWin) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Player 1 Wins!'),
-      ),
-    );
-  } else if (result == Result.playerTwoWin) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Player 2 Wins!'),
-      ),
-    );
-  } else if (result == Result.tie) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('It\'s a tie!'),
-      ),
+  if (result != Result.play) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: (result == Result.tie)
+              ? Colors.white.withOpacity(0.9)
+              : (result == Result.playerOneWin)
+                  ? crossColor.withOpacity(0.9)
+                  : circleColor.withOpacity(0.9),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          content: Text(
+            (result == Result.tie)
+                ? 'It\'s a tie'
+                : (result == Result.playerOneWin)
+                    ? 'Player 1 wins'
+                    : 'Player 2 wins',
+            style: GoogleFonts.aBeeZee(
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          title: Text(
+            'GAME OVER!',
+            style: GoogleFonts.davidLibre(
+              fontWeight: FontWeight.w900,
+              color: Colors.black,
+              fontSize: 28,
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -105,6 +123,7 @@ void onRestart(
 
   currentTurn = Turn.playerOne;
   result = Result.play;
+  gameOver = false;
   ScaffoldMessenger.of(context).clearSnackBars();
   // ignore: invalid_use_of_protected_member
   gameScreenKey.currentState!.setState(() {});
@@ -117,9 +136,11 @@ Result didEnd() {
       gameState[1][1].value == gameState[2][2].value) {
     if (gameState[1][1].value == 1 || gameState[1][1].value == 3) {
       gameState[0][0].value = gameState[1][1].value = gameState[2][2].value = 3;
+      gameOver = true;
       return Result.playerOneWin;
     } else if (gameState[1][1].value == 2 || gameState[1][1].value == 4) {
       gameState[0][0].value = gameState[1][1].value = gameState[2][2].value = 4;
+      gameOver = true;
       return Result.playerTwoWin;
     }
   }
@@ -128,9 +149,11 @@ Result didEnd() {
       gameState[1][1].value == gameState[2][0].value) {
     if (gameState[1][1].value == 1 || gameState[1][1].value == 3) {
       gameState[0][2].value = gameState[1][1].value = gameState[2][0].value = 3;
+      gameOver = true;
       return Result.playerOneWin;
     } else if (gameState[1][1].value == 2 || gameState[1][1].value == 4) {
       gameState[0][2].value = gameState[1][1].value = gameState[2][0].value = 4;
+      gameOver = true;
       return Result.playerTwoWin;
     }
   }
@@ -139,9 +162,11 @@ Result didEnd() {
       gameState[0][1].value == gameState[0][2].value) {
     if (gameState[0][1].value == 1 || gameState[0][1].value == 3) {
       gameState[0][0].value = gameState[0][1].value = gameState[0][2].value = 3;
+      gameOver = true;
       return Result.playerOneWin;
     } else if (gameState[0][1].value == 2 || gameState[0][1].value == 4) {
       gameState[0][0].value = gameState[0][1].value = gameState[0][2].value = 4;
+      gameOver = true;
       return Result.playerTwoWin;
     }
   }
@@ -150,9 +175,11 @@ Result didEnd() {
       gameState[1][1].value == gameState[1][2].value) {
     if (gameState[1][1].value == 1 || gameState[1][1].value == 3) {
       gameState[1][0].value = gameState[1][1].value = gameState[1][2].value = 3;
+      gameOver = true;
       return Result.playerOneWin;
     } else if (gameState[1][1].value == 2 || gameState[1][1].value == 4) {
       gameState[1][0].value = gameState[1][1].value = gameState[1][2].value = 4;
+      gameOver = true;
       return Result.playerTwoWin;
     }
   }
@@ -161,9 +188,11 @@ Result didEnd() {
       gameState[2][1].value == gameState[2][2].value) {
     if (gameState[2][1].value == 1 || gameState[2][1].value == 3) {
       gameState[2][0].value = gameState[2][1].value = gameState[2][2].value = 3;
+      gameOver = true;
       return Result.playerOneWin;
     } else if (gameState[2][1].value == 2 || gameState[2][1].value == 4) {
       gameState[2][0].value = gameState[2][1].value = gameState[2][2].value = 4;
+      gameOver = true;
       return Result.playerTwoWin;
     }
   }
@@ -172,9 +201,11 @@ Result didEnd() {
       gameState[1][0].value == gameState[2][0].value) {
     if (gameState[1][0].value == 1 || gameState[1][0].value == 3) {
       gameState[0][0].value = gameState[1][0].value = gameState[2][0].value = 3;
+      gameOver = true;
       return Result.playerOneWin;
     } else if (gameState[1][0].value == 2 || gameState[1][0].value == 4) {
       gameState[0][0].value = gameState[1][0].value = gameState[2][0].value = 4;
+      gameOver = true;
       return Result.playerTwoWin;
     }
   }
@@ -183,9 +214,11 @@ Result didEnd() {
       gameState[1][1].value == gameState[2][1].value) {
     if (gameState[1][1].value == 1 || gameState[1][1].value == 3) {
       gameState[0][1].value = gameState[1][1].value = gameState[2][1].value = 3;
+      gameOver = true;
       return Result.playerOneWin;
     } else if (gameState[1][1].value == 2 || gameState[1][1].value == 4) {
       gameState[0][1].value = gameState[1][1].value = gameState[2][1].value = 4;
+      gameOver = true;
       return Result.playerTwoWin;
     }
   }
@@ -194,9 +227,11 @@ Result didEnd() {
       gameState[1][2].value == gameState[2][2].value) {
     if (gameState[1][2].value == 1 || gameState[1][2].value == 3) {
       gameState[0][2].value = gameState[1][2].value = gameState[2][2].value = 3;
+      gameOver = true;
       return Result.playerOneWin;
     } else if (gameState[1][2].value == 2 || gameState[1][2].value == 4) {
       gameState[0][2].value = gameState[1][2].value = gameState[2][2].value = 4;
+      gameOver = true;
       return Result.playerTwoWin;
     }
   }
@@ -210,6 +245,7 @@ Result didEnd() {
       gameState[2][0].value != 0 &&
       gameState[2][1].value != 0 &&
       gameState[2][2].value != 0) {
+    gameOver = true;
     return Result.tie;
   }
 

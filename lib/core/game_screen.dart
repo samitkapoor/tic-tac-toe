@@ -7,6 +7,7 @@ import 'package:tictactoe/constants/about.dart';
 import 'package:tictactoe/constants/colors.dart';
 import 'package:tictactoe/utils/logic.dart';
 
+// ignore: must_be_immutable
 class GameScreen extends StatefulWidget {
   GameScreen({required this.gameScreenKey, super.key});
 
